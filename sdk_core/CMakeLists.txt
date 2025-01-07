@@ -6,6 +6,14 @@ set(SDK_LIBRARY_SHARED livox_lidar_sdk_shared)
 add_library(${SDK_LIBRARY_STATIC} STATIC "")
 add_library(${SDK_LIBRARY_SHARED} SHARED "")
 
+if (DEFINED ENV{CONDA_PREFIX})
+        if (LINUX)
+                set (CMAKE_NM "gcc-nm")
+                set (CMAKE_AR "gcc-ar")
+                set (CMAKE_RANLIB "gcc-ranlib")
+        endif()
+endif()
+
 set(LIVOX_SDK_MAJOR_VERSION "0")
 set(LIVOX_SDK_MINOR_VERSION "0")
 set(LIVOX_SDK_PATCH_VERSION "2")
@@ -29,13 +37,13 @@ else(WIN32)
 endif (WIN32)
 
 target_compile_options(${SDK_LIBRARY_STATIC}
-        PRIVATE $<$<CXX_COMPILER_ID:GNU>:-Wall>#-Wno-c++11-long-long>
+        PRIVATE $<$<CXX_COMPILER_ID:GNU>:-Wall -flto>#-Wno-c++11-long-long>
         PRIVATE $<$<CXX_COMPILER_ID:AppleClang>:-Wno-unknown-pragmas -Wall -Wno-unused-private-field -Wno-unused-const-variable -Wno-c++11-long-long>
         PRIVATE $<$<CXX_COMPILER_ID:Clang>:-Wno-unknown-pragmas -Wall  -Wno-c++11-long-long -Wno-delete-non-abstract-non-virtual-dtor -Wno-unused-const-variable -Wno-unused-private-field>
         )
 
 target_compile_options(${SDK_LIBRARY_SHARED}
-        PRIVATE $<$<CXX_COMPILER_ID:GNU>:-Wall>#-Wno-c++11-long-long>
+        PRIVATE $<$<CXX_COMPILER_ID:GNU>:-Wall -flto>#-Wno-c++11-long-long>
         PRIVATE $<$<CXX_COMPILER_ID:AppleClang>:-Wno-unknown-pragmas -Wall -Wno-unused-private-field  -Wno-unused-const-variable -Wno-c++11-long-long>
         PRIVATE $<$<CXX_COMPILER_ID:Clang>:-Wno-unknown-pragmas -Wall  -Wno-c++11-long-long -Wno-unused-const-variable -Wno-delete-non-abstract-non-virtual-dtor -Wno-unused-private-field>
         )

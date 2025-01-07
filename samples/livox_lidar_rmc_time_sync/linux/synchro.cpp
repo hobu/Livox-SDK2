@@ -198,7 +198,7 @@ int Synchro::Setup(enum BaudRate baud, enum Parity parity) {
   baudrate = baud_map[baud];
   cfsetispeed(&options, baudrate);
   cfsetospeed(&options, baudrate);
-  printf("[Baudrate]: %d %lu\r\n", baud, baudrate);
+  printf("[Baudrate]: %d %lu\r\n", baud, (long unsigned int) baudrate);
 
   switch (parity) {
     case P_8N1:
