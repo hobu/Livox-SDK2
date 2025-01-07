@@ -39,7 +39,7 @@ namespace livox {
 namespace lidar {
 
 // comment out because it will break std types
-// #pragma pack(1) 
+// #pragma pack(1)
 
 const uint16_t KDefaultTimeOut = 1000;
 static const uint32_t kMaxCommandBufferSize = 1400;
@@ -69,7 +69,7 @@ typedef struct {
 
 typedef struct {
   std::vector<uint16_t> cmd_key_set;
-} GeneralCfgInfo; 
+} GeneralCfgInfo;
 
 typedef struct {
   uint8_t device_type;
@@ -94,7 +94,7 @@ typedef enum {
    */
   kCommandIDLidarSearch = 0x0000,
   // kCommandIDLidarPreconfig = 0x01,
-  
+
   kCommandIDLidarWorkModeControl = 0x0100,
   kCommandIDLidarGetInternalInfo = 0x0101,
   kCommandIDLidarPushMsg         = 0x0102,
@@ -145,8 +145,8 @@ typedef struct {
   uint32_t handle;
   uint16_t cmd_port;
   uint8_t dev_type;
-  std::atomic<bool> is_get={false}; 
-  std::atomic<bool> is_set={false};
+  std::atomic<bool> is_get;
+  std::atomic<bool> is_set;
 } ViewDevice;
 
 
@@ -255,8 +255,8 @@ typedef struct {
   uint32_t timestamp;
   uint16_t rsvd;
   uint32_t trans_index;
-  uint16_t data_length;     // log data length 
-  uint8_t  data[1];         //data of log  
+  uint16_t data_length;     // log data length
+  uint8_t  data[1];         //data of log
 } DeviceLoggerFilePushRequest;
 
 typedef struct {

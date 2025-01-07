@@ -19,7 +19,7 @@ endif(UNIX)
 set(SDK_EXAMPLE_COMPILE_OPTIONS
     $<$<CXX_COMPILER_ID:GNU>:-Wall>
     $<$<CXX_COMPILER_ID:AppleClang>:-Wno-unknown-pragmas -Wall -Werror>
-    $<$<CXX_COMPILER_ID:Clang>:-Wno-unknown-pragmas -Wall -Werror>
+    $<$<CXX_COMPILER_ID:Clang>:-Wno-unknown-pragmas -Wall -Werror -Wno-unused-private-field>
     $<$<CXX_COMPILER_ID:GNU>:-flto=auto>
     $<$<CXX_COMPILER_ID:Clang>:-flto=thin>
     -O3

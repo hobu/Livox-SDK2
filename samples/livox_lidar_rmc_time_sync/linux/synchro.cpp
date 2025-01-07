@@ -34,7 +34,7 @@
 #include <fcntl.h>
 
 Synchro::Synchro() {
-  fd_ = 0; 
+  fd_ = 0;
   is_quit_ = false;
   rmc_buff_.resize(128,0);
 }
@@ -97,7 +97,7 @@ bool Synchro::ParseGps(uint8_t in_byte) {
       if (strncmp((const char*)&rmc_buff_[0], kGPRMC, strlen(kGPRMC)) != 0 &&  \
           strncmp((const char*)&rmc_buff_[0], kGNRMC, strlen(kGNRMC)) != 0) {
         cur_len_--;
-      } 
+      }
     }
     return false;
   }
@@ -124,7 +124,7 @@ bool Synchro::ParseGps(uint8_t in_byte) {
      }
   }
   cur_len_++;
-  return false; 
+  return false;
 }
 
 void Synchro::SetSyncTimerCallback(UtcTimerCallback cb) {
@@ -163,8 +163,8 @@ bool Synchro::Open() {
 void Synchro::Close() {
   if (fd_ > 0) {
     /* Flush the port */
-    tcflush(fd_,TCOFLUSH); 
-    tcflush(fd_,TCIFLUSH); 
+    tcflush(fd_,TCOFLUSH);
+    tcflush(fd_,TCIFLUSH);
 
     close(fd_);
   }
@@ -198,7 +198,7 @@ int Synchro::Setup(enum BaudRate baud, enum Parity parity) {
   baudrate = baud_map[baud];
   cfsetispeed(&options, baudrate);
   cfsetospeed(&options, baudrate);
-  printf("[Baudrate]: %d %u\r\n", baud, baudrate);
+  printf("[Baudrate]: %d %lu\r\n", baud, baudrate);
 
   switch (parity) {
     case P_8N1:
@@ -233,11 +233,11 @@ int Synchro::Setup(enum BaudRate baud, enum Parity parity) {
     break;
     default:
       return -1;
-  }    
+  }
 
   /* flush the port */
   tcflush(fd_, TCIOFLUSH);
-    
+
   /* send new config to the port */
   tcsetattr(fd_, TCSANOW, &options);
 

@@ -17,7 +17,7 @@ set(LIVOX_API_HEADER
         ../include/livox_lidar_cfg.h
         )
 
-set_target_properties(${SDK_LIBRARY_STATIC} #${SDK_LIBRARY_SHARED} 
+set_target_properties(${SDK_LIBRARY_STATIC} #${SDK_LIBRARY_SHARED}
         PROPERTIES
         PUBLIC_HEADER "${LIVOX_API_HEADER}"
         )
@@ -30,14 +30,14 @@ endif (WIN32)
 
 target_compile_options(${SDK_LIBRARY_STATIC}
         PRIVATE $<$<CXX_COMPILER_ID:GNU>:-Wall>#-Wno-c++11-long-long>
-        PRIVATE $<$<CXX_COMPILER_ID:AppleClang>:-Wno-unknown-pragmas -Wall -Werror -Wno-c++11-long-long>
-        PRIVATE $<$<CXX_COMPILER_ID:Clang>:-Wno-unknown-pragmas -Wall -Werror -Wno-c++11-long-long>
+        PRIVATE $<$<CXX_COMPILER_ID:AppleClang>:-Wno-unknown-pragmas -Wall -Wno-unused-private-field -Wno-unused-const-variable -Wno-c++11-long-long>
+        PRIVATE $<$<CXX_COMPILER_ID:Clang>:-Wno-unknown-pragmas -Wall  -Wno-c++11-long-long -Wno-delete-non-abstract-non-virtual-dtor -Wno-unused-const-variable -Wno-unused-private-field>
         )
 
 target_compile_options(${SDK_LIBRARY_SHARED}
         PRIVATE $<$<CXX_COMPILER_ID:GNU>:-Wall>#-Wno-c++11-long-long>
-        PRIVATE $<$<CXX_COMPILER_ID:AppleClang>:-Wno-unknown-pragmas -Wall -Werror -Wno-c++11-long-long>
-        PRIVATE $<$<CXX_COMPILER_ID:Clang>:-Wno-unknown-pragmas -Wall -Werror -Wno-c++11-long-long>
+        PRIVATE $<$<CXX_COMPILER_ID:AppleClang>:-Wno-unknown-pragmas -Wall -Wno-unused-private-field  -Wno-unused-const-variable -Wno-c++11-long-long>
+        PRIVATE $<$<CXX_COMPILER_ID:Clang>:-Wno-unknown-pragmas -Wall  -Wno-c++11-long-long -Wno-unused-const-variable -Wno-delete-non-abstract-non-virtual-dtor -Wno-unused-private-field>
         )
 
 # Options for optimization
@@ -73,7 +73,7 @@ set(MICROSTAR_GDB_COMPILE_OPTIONS
         -g3
         )
 
-# cmake .. -DMICROSTAR_DEBUG_GDB=1 to enable gdb debug symbols        
+# cmake .. -DMICROSTAR_DEBUG_GDB=1 to enable gdb debug symbols
 if(${MICROSTAR_DEBUG_GDB})
         message(WARNING "[Livox-SDK2]Enable GDB debug symbols")
         target_compile_options(${SDK_LIBRARY_STATIC}
@@ -120,11 +120,11 @@ if(${MICROSTAR_DEBUG_MEMCHECK})
                 )
 endif()
 
-set(LIVOX_PRIVATE_INCLUDE_DIR 
-        ../3rdparty 
+set(LIVOX_PRIVATE_INCLUDE_DIR
+        ../3rdparty
         .
         )
-set(LIVOX_PUBLIC_INCLUDE_DIR 
+set(LIVOX_PUBLIC_INCLUDE_DIR
         ../include
         )
 
@@ -137,7 +137,7 @@ target_include_directories(
         PRIVATE
         ${LIVOX_PRIVATE_INCLUDE_DIR}
         ${RapidJSON_INCLUDE_DIRS}
-        )        
+        )
 target_include_directories(
         ${SDK_LIBRARY_SHARED}
         PUBLIC
@@ -148,7 +148,7 @@ target_include_directories(
         )
 
 find_package(spdlog REQUIRED)
-	
+
 target_link_libraries(
         ${SDK_LIBRARY_STATIC}
         PRIVATE
